@@ -1,0 +1,23 @@
+Private Declare PtrSafe Function URLDownloadToFile Lib "urlmon" Alias "URLDownloadToFileA" (ByVal pCaller As LongPtr, ByVal szURL As String, ByVal szFileName As String, ByVal dwReserved As LongPtr, ByVal lpfnCB As LongPtr) As LongPtr
+
+Sub gorselindir()
+    Dim sonsat As Long
+    Dim i As Long
+    Dim IURL As String
+    Dim dosyaYolu As String
+    Dim ad As String
+
+    sonsat = Range("A10000").End(xlUp).Row
+
+    For i = 2 To sonsat
+        IURL = Sheets("Sheet1").Range("B" & i).Value
+        ad = Sheets("Sheet1").Range("A" & i).Value
+        dosyaYolu = "File path" & ad & ".png"
+
+        URLDownloadToFile 0, IURL, dosyaYolu, 0, 0
+
+        Sheets("Sheet1").Range("C" & i) = "OK"//sheet1=excel file name 
+    Next i
+
+    MsgBox "Downloads completed!"
+End Sub
